@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SuperMall - Register">
+    <title>SuperMall - Register</title>
+    <link rel="stylesheet" href="/frontend/assets/css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product_list.html">Shop</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="admin_dashboard.html">Admin</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="SuperMall Logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product_list.html">Shop</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="admin_dashboard.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="login-page" style="margin-left: 220px; padding: 50px;">
+        <h1>Register</h1>
+        <form id="register-form">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                <select id="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a>.</p>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 SuperMall. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const registerForm = document.getElementById('register-form');
+
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the username already exists
+            const existingUser = users.find(user => user.username === username);
+            if (existingUser) {
+                alert('Username already exists. Please choose a different one.');
+                return;
+            }
+
+            // Add the new user to localStorage
+            users.push({ username, password, role });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful! Please log in.');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

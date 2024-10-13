@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SuperMall - Login">
+    <title>SuperMall - Login</title>
+    <link rel="stylesheet" href="/frontend/assets/css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product_list.html">Shop</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="admin_dashboard.html">Admin</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product_list.html">Shop</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="admin_dashboard.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="login-page" style="margin-left: 220px; padding: 50px;">
+        <h1>Login</h1>
+        <form id="login-form">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                <select id="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.html">Register here</a>.</p>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 SuperMall. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.username === username && user.password === password && user.role === role);
+
+            if (user) {
+                if (role === 'admin') {
+                    localStorage.setItem('isAdmin', true);
+                    window.location.href = 'admin_dashboard.html';
+                } else {
+                    localStorage.setItem('isAdmin', false);
+                    window.location.href = 'index.html';
+                }
+            } else {
+                alert('Invalid credentials or role. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SuperMall - Your Shopping Cart">
+    <title>SuperMall - Cart</title>
+    <link rel="stylesheet" href="/frontend/assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product_list.html">Shop</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="admin_dashboard.html">Admin</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products..." id="search-input" oninput="searchProduct()">
+        </div>
+        <div class="cart">
+            <a href="cart.html">🛒 Cart (<span id="cart-count">0</span>)</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main style="margin-left: 220px; padding: 20px;">
+        <h1>Your Shopping Cart</h1>
+        <section class="cart-list" id="cart-list">
+            <!-- Cart items will be dynamically inserted here -->
+        </section>
+        <h2>Total: $<span id="total-price">0.00</span></h2>
+        <button onclick="checkout()">Checkout</button>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 SuperMall. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || []; // Load cart from localStorage
+
+        // Function to display cart items
+        function displayCart() {
+            const cartList = document.getElementById('cart-list');
+            cartList.innerHTML = ''; // Clear previous cart display
+            let total = 0;
+
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <h2>${item.title}</h2>
+                    <p>Price: $${item.price.toFixed(2)}</p>
+                    <p>Quantity: <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)"></p>
+                    <button onclick="removeFromCart(${item.id})">Remove</button>
+                `;
+                cartList.appendChild(cartItem);
+                total += item.price * item.quantity; // Update total cost based on quantity
+            });
+
+            document.getElementById('total-price').innerText = total.toFixed(2); // Update total price
+            document.getElementById('cart-count').innerText = cart.length; // Update cart count in the header
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(productId) {
+            const index = cart.findIndex(item => item.id === productId);
+            if (index > -1) {
+                cart.splice(index, 1); // Remove the item from cart
+                localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+                displayCart(); // Refresh the cart display
+                alert('Item removed from cart!');
+            }
+        }
+
+        // Function to update quantity of cart items
+        function updateQuantity(productId, newQuantity) {
+            const product = cart.find(item => item.id === productId);
+            if (product) {
+                product.quantity = parseInt(newQuantity);
+                localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+                displayCart(); // Refresh the cart display
+            }
+        }
+
+        // Dummy function for checkout process
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                alert('Proceeding to checkout...');
+                // Add checkout functionality as needed
+            }
+        }
+
+        // Load cart display when page loads
+        window.onload = () => {
+            displayCart(); // Display the cart when the page is loaded
+        };
+    </script>
+</body>
+</html>
