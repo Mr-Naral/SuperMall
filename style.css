@@ -216,7 +216,7 @@ footer .social-links a:hover {
 
 /* Adjust main content to avoid being hidden behind the sidebar */
 main {
-    margin-left: 240px; /* Align with the sidebar width */
+     /* Align with the sidebar width */
     padding: 20px;
     flex: 1;
     background-color: #fff; /* Make content background white */
@@ -292,8 +292,13 @@ footer {
 }
 
 /* Styling for the Login Page */
+@media (min-width:768px) {
+    .login-page{
+    margin-left: 240px ;
+    }
+}
 main.login-page {
-    margin-left: 0px; /* Retain the margin specified in the HTML */
+     /* Retain the margin specified in the HTML */
     padding: 50px;
     background-color: #f9f9f9; /* Light background for the login section */
     border-radius: 8px; /* Rounded corners */
@@ -470,6 +475,9 @@ main.admin-dashboard .product-item button:hover {
     .search-bar{
         display: none;
     }
+     main .login-page{
+        margin-left:0px;
+     }
 }
 
 /* For mobile devices with max width 480px */
