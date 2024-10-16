@@ -216,13 +216,13 @@ footer .social-links a:hover {
 
 /* Adjust main content to avoid being hidden behind the sidebar */
 
-@media (min-width:768px) {
+@media (max-width:768px) {
     .main{
-        margin-left: 240px;
+        margin-left:0px;
     }
 }
 main {
-     /* Align with the sidebar width */
+    margin-left:240px;/* Align with the sidebar width */
     padding: 20px;
     flex: 1;
     background-color: #fff; /* Make content background white */
