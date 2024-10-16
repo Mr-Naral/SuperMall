@@ -222,8 +222,8 @@ footer .social-links a:hover {
     }
 }
 main {
-    
-    margin-left:240px;/* Align with the sidebar width */
+
+    margin-left: 240px;/* Align with the sidebar width */
     padding: 20px;
     flex: 1;
     background-color: #fff; /* Make content background white */
